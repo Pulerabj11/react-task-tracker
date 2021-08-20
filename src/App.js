@@ -1,23 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./Components/Header";
 
-function App() {
+// App is used in index.js
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    // This is JavaScript Syntax Extension (JSX)
+    // This is html, but with some changes like different attribute names and using JavaScript expressions and variables
+    <div className="container">
+      <Header/>
     </div>
   );
 }
