@@ -4,6 +4,7 @@ index.css was not covered in this video, and was downloaded from his GitHub repo
 
 
 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
