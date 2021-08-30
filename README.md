@@ -15,4 +15,4 @@ Back-End was created using JSON Server, found here: https://www.npmjs.com/packag
 # About
 This is a task tracker application.  The app is held within a single container which consists of a header, an add task button to toggle task input, and a list of tasks.\
 Each Task consists of some text describing the task, a date/time, and a reminder toggled on/off.\
-Through a mock JSON server, the state of your tasks is saved.\
+Through a mock JSON server, the state of your tasks is saved.
