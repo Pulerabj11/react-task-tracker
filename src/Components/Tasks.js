@@ -1,5 +1,6 @@
 import Task from "./Task"
 
+//Component consists of multiple Tasks.
 //tasks prop is passed in.  tasks state is in App.js
 const Tasks = ({ tasks, onDelete, onToggle }) => {
     return (

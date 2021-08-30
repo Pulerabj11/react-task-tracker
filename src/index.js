@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -6,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   //Grab div in index.html with id="root" and insert our app component from App.js
-  //This is how React 
   <React.StrictMode>
     <App />
   </React.StrictMode>,

@@ -1,6 +1,19 @@
+/* Main App component.
+   Rendered through ReactDOM in index.js
 
-//'npm start' will start a local development build, localhost:3000
-//'npm run server' will start the local mock json server, localhost:3000
+States: showAddTask
+        tasks
+
+Functions: useEffect
+           fetchTasks
+           fetchTask
+           addTask
+           deleteTask
+           toggleReminder
+
+
+
+*/
 
 import Header from "./Components/Header"
 import Tasks from "./Components/Tasks"
@@ -22,6 +35,8 @@ const App = () => {
   //Moved the tasks state into App so that it can be used globally.  Pass them into components as props.
   const [tasks, setTasks] = useState([])
 
+  //Use fetchTasks() to get current list of tasks from server
+  //set the state of tasks with setTasks
   useEffect(() => {
     //async because you're calling fetchTasks which returns a promise
     const getTasks = async () => {
@@ -36,7 +51,8 @@ const App = () => {
   }, []) //this is a dependency array.  If the value inside changes, useEffect will run agan
 
   //Fetch Tasks
-  //an aysnc function allows use to write promises based code as if it were synchronous
+  //An aysnc function allows use to write promises based code as if it were synchronous
+  //Gets all tasks stored in our json data
   const fetchTasks = async () => {
     //fetch returns a promise, so use await to indicate res is waiting for the result
     const res = await fetch('http://localhost:5000/tasks')
@@ -47,6 +63,7 @@ const App = () => {
   }
 
   //Fetch Task
+  //Gets a task from the server based on the given id
   const fetchTask = async (id) => {
     //fetch returns a promise, so use await to indicate res is waiting for the result
     const res = await fetch(`http://localhost:5000/tasks/${id}`)
@@ -57,6 +74,7 @@ const App = () => {
   }
 
   //Add Task
+  //Uses fetch/POST to add a task to our json data
   const addTask = async (task) => {
     const res = await fetch('http://localhost:5000/tasks', {
       //POST is an addition to db.json
@@ -68,23 +86,31 @@ const App = () => {
     })
 
     //new task we just created
+    //.json() takes JSON as input and produces a JavaScript object
     const data = await res.json()
 
+    //update the tasks state
     setTasks([...tasks, data])
   }
 
   //Delete Task
+  //Uses fetch/DELETE to delete a task from our json data given an id
   const deleteTask = async (id) => {
     //fetch the id from local data and add a 2nd object as an argument specifying the method of the request is DELETE
     await fetch(`http://localhost:5000/tasks/${id}`, {
       method: 'DELETE'
     })
 
-    //filter the setTasks array to update the state
-    setTasks(tasks.filter((task) => task.id !== id))
+    //Filters our a task if the id matches the deleted id
+    //Updates the tasks state
+    setTasks(
+      tasks.filter((task) => 
+      task.id !== id)
+    )
   }
 
   //Toggle Reminder
+  //Uses fetch/PUT to update the toggle property of a task in our json data, given an id
   const toggleReminder = async (id) => {
     const taskToToggle = await fetchTask(id)
     //updatedTask is an event, and has all the same properties as taskToToggle, but change reminder to the opposite.
@@ -99,7 +125,7 @@ const App = () => {
       body: JSON.stringify(updatedTask)
     })
 
-  const data = await res.json()
+    const data = await res.json()
 
     //For each task, if task.id === id, then spread across all task properties except reminder.  Reminder boolean is flipped.
     setTasks(
@@ -113,9 +139,14 @@ const App = () => {
     // This is JavaScript Syntax Extension (JSX)
     // This is html, but with some changes like different attribute names and using JavaScript expressions and variables
     <div className="container">
-      {/* onAdd is a function that passes boolean to setShowAddTask.  !showAddTask acts as a toggle for the task input form.  showAdd is a boolean to change the Add button text/color*/}
+      {/* onAdd triggers when the add button is clicked and toggles the input for adding a new task.  It contains a function that passes a boolean to setShowAddTask.
+      showAdd is a boolean to change the Add button text/color*/}
       <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask}/>
+      
+      {/* if showAddTask is true, then show the AddTask component*/}
       {showAddTask && <AddTask onAdd={addTask}/>}   {/* && is a shorthand ternary if without the else*/}
+
+      {/* Show tasks.  If there are no tasks, show message 'No Tasks To Show'*/}
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder}/>
         ) : (

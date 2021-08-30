@@ -1,10 +1,14 @@
 import { useState } from 'react'
 
+//Component that is toggled on/off by Button.js, found in Header.js.
+//Includes input for text, day, and reminder.
 const AddTask = ({onAdd}) => {
+    //Each input gets its own state
     const [text, setText] = useState('')
     const [day, setDay] = useState('')
     const [reminder, setReminder] = useState(false)
 
+    //Called from the 'Save Task' button in the form below.
     const onSubmit = (e) => {
         //preventDefault prevents the browser from refreshing
         e.preventDefault()
