@@ -10,9 +10,6 @@ Functions: useEffect
            addTask
            deleteTask
            toggleReminder
-
-
-
 */
 
 import Header from "./Components/Header"
@@ -55,7 +52,7 @@ const App = () => {
   //Gets all tasks stored in our json data
   const fetchTasks = async () => {
     //fetch returns a promise, so use await to indicate res is waiting for the result
-    const res = await fetch('http://localhost:5000/tasks')
+    const res = await fetch('http://localhost:3000/tasks')
     //Gives us the json data from res
     const data = await res.json()
     
@@ -66,7 +63,7 @@ const App = () => {
   //Gets a task from the server based on the given id
   const fetchTask = async (id) => {
     //fetch returns a promise, so use await to indicate res is waiting for the result
-    const res = await fetch(`http://localhost:5000/tasks/${id}`)
+    const res = await fetch(`http://localhost:3000/tasks/${id}`)
     //Gives us the json data from res
     const data = await res.json()
     
@@ -76,7 +73,7 @@ const App = () => {
   //Add Task
   //Uses fetch/POST to add a task to our json data
   const addTask = async (task) => {
-    const res = await fetch('http://localhost:5000/tasks', {
+    const res = await fetch('http://localhost:3000/tasks', {
       //POST is an addition to db.json
       method: 'POST',
       headers: {
@@ -97,7 +94,7 @@ const App = () => {
   //Uses fetch/DELETE to delete a task from our json data given an id
   const deleteTask = async (id) => {
     //fetch the id from local data and add a 2nd object as an argument specifying the method of the request is DELETE
-    await fetch(`http://localhost:5000/tasks/${id}`, {
+    await fetch(`http://localhost:3000/tasks/${id}`, {
       method: 'DELETE'
     })
 
@@ -116,7 +113,7 @@ const App = () => {
     //updatedTask is an event, and has all the same properties as taskToToggle, but change reminder to the opposite.
     const updatedTask = {...taskToToggle, reminder: !taskToToggle.reminder}
 
-    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+    const res = await fetch(`http://localhost:3000/tasks/${id}`, {
       //PUT is an update
       method:'PUT',
       headers: {
